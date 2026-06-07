@@ -1,0 +1,11 @@
+{
+  "name": "htmlshot",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Screenshot HTML files, URLs, or HTML snippets to PNG using system Chrome",
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "playwright-core": "^1.50.0"
+  }
+}
