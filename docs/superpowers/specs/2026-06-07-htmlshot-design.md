@@ -13,8 +13,8 @@
 
 两类消费者：
 
-1. **Claude 自检闭环**：生成 HTML → 截图 → `Read` 看图 → 改 → 再截。默认输出小图省 token。
-2. **给人看/存档**：`--scale 2`（必要时配 `--full-page`）输出高清图。
+1. **Claude 自检闭环**：生成 HTML → 截图 → `Read` 看图 → 改 → 再截。自检时加 `--scale 1` 省 token。
+2. **给人看/存档**：默认 `--scale 2` 高清输出（必要时配 `--full-page`）。
 
 发布到 GitHub，供他人安装到 `~/.claude/skills/htmlshot/`。
 
@@ -54,7 +54,7 @@ node screenshot.mjs <input> [options]
 | `--full-page` | 整页长截图 | 关（只截视口） |
 | `--selector <css>` | 只截匹配的第一个元素 | 无 |
 | `--viewport <WxH>` | 视口尺寸 | `1280x800` |
-| `--scale <n>` | deviceScaleFactor | `1` |
+| `--scale <n>` | deviceScaleFactor | `2` |
 | `--wait <ms>` | networkidle 后额外等待 | `0` |
 
 行为细节：
@@ -72,8 +72,8 @@ node screenshot.mjs <input> [options]
 - 首次使用检查 `node_modules/playwright-core` 是否存在，缺失则先 `npm install`。
 - 写明两种模式：
   - 自检：默认参数截图 → `Read` 图片 → 迭代。
-  - 存档：`--scale 2`，按需 `--full-page`。
-- 提醒：长页面自检时优先 `--full-page` + 默认 scale，而非高清大图，控制 token。
+  - 存档：默认即高清（scale 2），按需 `--full-page`。
+- 提醒：自检时主动加 `--scale 1`，控制图片体积和 token。
 
 ## 测试
 

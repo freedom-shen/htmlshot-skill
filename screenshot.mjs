@@ -14,7 +14,7 @@ const USAGE = `用法: node screenshot.mjs <file.html|URL|-> [options]
   --full-page        整页长截图（默认只截视口）
   --selector <css>   只截匹配的第一个元素（与 --full-page 同时给出时优先）
   --viewport <WxH>   视口尺寸（默认 1280x800）
-  --scale <n>        deviceScaleFactor（默认 1，给人看用 2）
+  --scale <n>        deviceScaleFactor（默认 2 高清，自检省 token 可用 1）
   --wait <ms>        networkidle 后额外等待毫秒数（默认 0）`;
 
 function fail(msg) {
@@ -25,7 +25,7 @@ function fail(msg) {
 function parseArgs(argv) {
   const opts = {
     input: null, out: null, fullPage: false, selector: null,
-    viewport: { width: 1280, height: 800 }, scale: 1, wait: 0,
+    viewport: { width: 1280, height: 800 }, scale: 2, wait: 0,
   };
   const args = [...argv];
   while (args.length) {

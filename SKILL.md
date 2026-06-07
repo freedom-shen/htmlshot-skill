@@ -26,26 +26,26 @@ node ~/.claude/skills/htmlshot/screenshot.mjs <input> [options]
 - `--full-page`：整页长截图
 - `--selector <css>`：只截匹配的第一个元素（优先于 --full-page）
 - `--viewport <WxH>`：视口（默认 1280x800）
-- `--scale <n>`：deviceScaleFactor（默认 1）
+- `--scale <n>`：deviceScaleFactor（默认 2 高清）
 - `--wait <ms>`：networkidle 后额外等待（异步渲染页面可加 500~1000）
 
 成功时 stdout 打印图片绝对路径；失败时非零退出码 + stderr 错误信息。
 
-## 模式一：自检闭环（默认）
+## 模式一：自检闭环
 
-生成/修改 HTML 后，用默认参数截图，然后用 Read 工具查看图片，发现问题修改后重截：
+生成/修改 HTML 后截图，然后用 Read 工具查看图片，发现问题修改后重截。自检时主动加 `--scale 1` 减小图片体积、节省 token：
 
 ```bash
-node ~/.claude/skills/htmlshot/screenshot.mjs page.html
+node ~/.claude/skills/htmlshot/screenshot.mjs page.html --scale 1
 # → /tmp/.../htmlshot-xxx.png，用 Read 读取该路径查看效果
 ```
 
-长页面用 `--full-page` 但保持默认 scale 1，控制图片体积和 token 消耗。
+## 模式二：高清存档（给人看，默认）
 
-## 模式二：高清存档（给人看）
+默认 scale 2 即高清。给人看时建议用 `--out` 存到用户可见的位置（如 HTML 同目录），不要留在临时目录：
 
 ```bash
-node ~/.claude/skills/htmlshot/screenshot.mjs page.html --scale 2 --full-page --out ./screenshot.png
+node ~/.claude/skills/htmlshot/screenshot.mjs page.html --full-page --out ./screenshot.png
 ```
 
 ## 示例
